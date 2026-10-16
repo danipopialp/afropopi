@@ -1,0 +1,590 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afropopi | African Music News</title>
+
+<style>
+:root {
+  --bg: #090411;
+  --card: #190b2b;
+  --purple: #9b35ff;
+  --pink: #e32dff;
+  --text: #ffffff;
+  --muted: #c5b5d8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 18px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: rgba(9,4,17,.94);
+  border-bottom: 1px solid #38204d;
+  backdrop-filter: blur(15px);
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--pink); }
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: .3s;
+}
+
+nav a:hover { color: var(--pink); }
+
+.hero {
+  min-height: 540px;
+  padding: 75px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 80% 40%,
+    #42106b 0%, transparent 48%);
+}
+
+.hero-content {
+  max-width: 650px;
+  animation: slideUp 1s ease;
+  z-index: 1;
+}
+
+.eyebrow {
+  color: #dba2ff;
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: 1.05;
+  margin: 20px 0;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #a13cff, #f039ef);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 550px;
+}
+
+.music-art {
+  width: 290px;
+  height: 290px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 110px;
+  background: radial-gradient(circle, #7220b5, #1b0a30 70%);
+  border: 2px solid #a535ff;
+  box-shadow: 0 0 65px #6f18b5;
+  animation: float 4s ease-in-out infinite;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 13px;
+  text-decoration: none;
+  color: white;
+  background: var(--card);
+  border: 1px solid var(--purple);
+  transition: .3s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  background: #40145d;
+  box-shadow: 0 0 25px #8b20d9;
+}
+
+.primary {
+  background: linear-gradient(90deg, #8225ef, #d42aff);
+}
+
+section.content {
+  padding: 45px 7%;
+  scroll-margin-top: 90px;
+}
+
+.section-title {
+  font-size: 27px;
+  margin-bottom: 25px;
+}
+
+.section-title span { color: var(--pink); }
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #211033, #100819);
+  border: 1px solid #38204d;
+  border-radius: 17px;
+  overflow: hidden;
+  transition: .3s;
+  animation: slideUp .8s ease;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  border-color: var(--pink);
+  box-shadow: 0 10px 35px #8b20d926;
+}
+
+.card-art {
+  height: 155px;
+  display: grid;
+  place-items: center;
+  font-size: 65px;
+  background: radial-gradient(circle, #7020a1, #190b2b);
+}
+
+.card-body { padding: 20px; }
+
+.tag {
+  color: #e7a4ff;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card h3 {
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+.card p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.panel {
+  padding: 30px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #29103e, #100819);
+  border: 1px solid #57257b;
+}
+
+.reel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.reel {
+  min-height: 220px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #6821a0, #150a24 75%);
+  border: 1px solid #7730a3;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: .3s;
+}
+
+.reel:hover { transform: scale(1.03); }
+
+.reel .emoji {
+  font-size: 55px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.chat-box {
+  background: #100819;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #57257b;
+}
+
+.message {
+  background: #29103e;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.chat-form {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-form input {
+  min-width: 0;
+  flex: 1;
+  padding: 14px;
+  color: white;
+  background: #1b0d2b;
+  border: 1px solid #57257b;
+  border-radius: 10px;
+  outline: none;
+}
+
+.chat-form button {
+  padding: 12px 18px;
+  background: var(--purple);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.dani {
+  text-align: center;
+  padding: 55px 25px;
+  background: radial-gradient(circle, #40115f, #100819 70%);
+  border: 1px solid #8225b7;
+  border-radius: 22px;
+}
+
+.dani h2 {
+  font-size: clamp(32px, 5vw, 55px);
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.equalizer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 65px;
+  margin: 20px auto;
+}
+
+.equalizer i {
+  width: 5px;
+  height: 20px;
+  border-radius: 5px;
+  background: linear-gradient(#ff38f3, #7629ff);
+  animation: equalize .7s infinite alternate;
+}
+
+.equalizer i:nth-child(2n) {
+  animation-delay: -.4s;
+}
+
+.equalizer i:nth-child(3n) {
+  animation-delay: -.2s;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid #38204d;
+  color: var(--muted);
+  line-height: 2;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes equalize {
+  from { height: 10px; }
+  to { height: 55px; }
+}
+
+@media(max-width: 850px) {
+  .hero { flex-direction: column; align-items: flex-start; }
+  .music-art { width: 220px; height: 220px; font-size: 80px; align-self: center; }
+  .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media(max-width: 550px) {
+  header { padding: 16px 5%; }
+  nav { gap: 13px; }
+  nav a { font-size: 13px; }
+  .hero { padding: 55px 5%; }
+  section.content { padding: 35px 5%; }
+  .news-grid { grid-template-columns: 1fr; }
+  .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reel { min-height: 180px; padding: 13px; }
+  .buttons .btn { padding: 12px; font-size: 13px; }
+  .chat-form { flex-wrap: wrap; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="#home" class="logo" style="text-decoration:none;color:white">
+    Afro<span>popi</span>
+  </a>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#discover">Discover</a>
+    <a href="#reels">Reels</a>
+    <a href="#chat">Chat</a>
+    <a href="#dani">DANI WAVE</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="eyebrow">AFRICAN MUSIC. GLOBAL VIBES.</div>
+
+    <h1>
+      The Latest African<br>
+      Music News<br>
+      <span class="gradient">All in One Place.</span>
+    </h1>
+
+    <p>
+      Welcome to Afropopi, your home for African music news,
+      trending songs, artist interviews, new releases and the
+      hottest sounds from Uganda, Nigeria, Ghana and beyond.
+    </p>
+
+    <div class="buttons">
+      <a href="#chat" class="btn">💬 Chat</a>
+      <a href="#reels" class="btn">▶ Reels</a>
+      <a href="#discover" class="btn">✦ Discover</a>
+      <a href="#dani" class="btn primary">♫ DANI WAVE Music</a>
+    </div>
+  </div>
+
+  <div class="music-art">🎧</div>
+</section>
+
+<section class="content" id="news">
+  <h2 class="section-title"><span>♛</span> Latest Music News</h2>
+
+  <div class="news-grid">
+    <article class="card">
+      <div class="card-art">🎤</div>
+      <div class="card-body">
+        <span class="tag">Artist News</span>
+        <h3>African Artists Taking Over the World</h3>
+        <p>Discover the artists bringing African sounds to global audiences.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art">🎧</div>
+      <div class="card-body">
+        <span class="tag">New Releases</span>
+        <h3>Fresh Music You Need on Your Playlist</h3>
+        <p>Explore new releases, rising stars and sounds worth discovering.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-art">🎬</div>
+      <div class="card-body">
+        <span class="tag">Music Videos</span>
+        <h3>The Latest African Music Videos</h3>
+        <p>Catch the visuals, creativity and culture behind the music.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="content" id="discover">
+  <h2 class="section-title"><span>✦</span> Discover Music</h2>
+
+  <div class="panel">
+    <p style="color:#c5b5d8;line-height:1.8">
+      Find your next favorite sound. Explore Ugandan music,
+      Afrobeats, Amapiano, East African hits and emerging African artists.
+    </p>
+
+    <div class="buttons">
+      <button class="btn" onclick="showMessage('Ugandan music selected!')">🇺🇬 Ugandan Music</button>
+      <button class="btn" onclick="showMessage('Afrobeats selected!')">🔥 Afrobeats</button>
+      <button class="btn" onclick="showMessage('Amapiano selected!')">🎹 Amapiano</button>
+      <button class="btn" onclick="showMessage('East African music selected!')">🌍 East African</button>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="reels">
+  <h2 class="section-title"><span>▶</span> Reels — Feel the Vibe</h2>
+
+  <div class="reel-grid">
+    <div class="reel">
+      <div class="emoji">💃🏾</div>
+      <h3>Dance Challenges</h3>
+      <p style="color:#c5b5d8;margin-top:8px">Move to the rhythm.</p>
+      <button class="btn" onclick="showMessage('Connect a video to play this reel.')">▶ Watch Reel</button>
+    </div>
+
+    <div class="reel">
+      <div class="emoji">🎙️</div>
+      <h3>Artist Moments</h3>
+      <p style="color:#c5b5d8;margin-top:8px">Behind the scenes.</p>
+      <button class="btn" onclick="showMessage('Add an artist video to this reel.')">▶ Watch Reel</button>
+    </div>
+
+    <div class="reel">
+      <div class="emoji">🎶</div>
+      <h3>New Music</h3>
+      <p style="color:#c5b5d8;margin-top:8px">Discover fresh sounds.</p>
+      <button class="btn" onclick="showMessage('Add a music preview to this reel.')">▶ Watch Reel</button>
+    </div>
+
+    <div class="reel">
+      <div class="emoji">🌍</div>
+      <h3>African Culture</h3>
+      <p style="color:#c5b5d8;margin-top:8px">Our sound, our story.</p>
+      <button class="btn" onclick="showMessage('Add a culture video to this reel.')">▶ Watch Reel</button>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="chat">
+  <h2 class="section-title"><span>☏</span> Afropopi Chat</h2>
+
+  <div class="chat-box">
+    <div id="messages">
+      <div class="message">
+        Welcome to Afropopi Chat! 🎶<br>
+        Talk music, share discoveries and connect with other music fans.
+      </div>
+    </div>
+
+    <form class="chat-form" id="chatForm">
+      <input id="chatInput" placeholder="Write a message..." autocomplete="off">
+      <button type="submit">Send ➤</button>
+    </form>
+  </div>
+</section>
+
+<section class="content" id="dani">
+  <div class="dani">
+    <div class="eyebrow">FEATURED MUSIC HUB</div>
+    <h2>DANI WAVE <span class="gradient">Music</span></h2>
+    <p style="color:#c5b5d8">Your Vibe. Our Music. Your Wave.</p>
+
+    <div class="equalizer" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <button class="btn primary" onclick="showMessage('Add your music or streaming link to enable playback.')">
+      ♫ Listen Now →
+    </button>
+  </div>
+</section>
+
+<section class="content" id="about">
+  <h2 class="section-title"><span>✦</span> About Afropopi</h2>
+  <p style="color:#c5b5d8;line-height:1.9;max-width:750px">
+    Afropopi brings you African music news, trending songs, artist
+    stories, music videos and entertainment updates. From Uganda
+    to the rest of Africa, we celebrate the sounds shaping our culture.
+    Africa's Sound. Your Daily Update.
+  </p>
+</section>
+</main>
+
+<footer>
+  <div class="logo">Afro<span>popi</span></div>
+  <p>Africa's Sound. Your Daily Update.</p>
+  <p>© <span id="year"></span> Afropopi. All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function showMessage(message) {
+  alert(message);
+}
+
+// Demo chat: messages appear only in this browser page.
+document.getElementById("chatForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  const message = document.createElement("div");
+  message.className = "message";
+  message.textContent = text;
+
+  document.getElementById("messages").appendChild(message);
+  input.value = "";
+  message.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+</script>
+
+</body>
+</html>
