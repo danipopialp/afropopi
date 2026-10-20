@@ -151,7 +151,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    byId("authOpenButton")?.addEventListener("click", () => {\n      const signedIn = Boolean(supabaseClient);\n      if (!signedIn) { openAuth("signin"); return; }\n      supabaseClient.auth.getSession().then(({ data }) => openAuth(data?.session ? "account" : "signin"));\n    });
+    byId("authOpenButton")?.addEventListener("click", () => {
+      const signedIn = Boolean(supabaseClient);
+      if (!signedIn) { openAuth("signin"); return; }
+      supabaseClient.auth.getSession().then(({ data }) => openAuth(data?.session ? "account" : "signin"));
+    });
     byId("authSignOutButton")?.addEventListener("click", async () => {
       const client = getConfiguredClient();
       if (!client) return;
