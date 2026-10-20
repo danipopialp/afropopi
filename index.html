@@ -6,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Afropopi | African Music News</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="supabase-config.js" defer></script>
+<script src="auth.js" defer></script>
 <script src="script.js" defer></script>
 </head>
 
@@ -24,6 +28,11 @@
     <a href="#chat">Chat</a>
     <a href="#dani">DANI WAVE</a>
   </nav>
+  <div class="auth-actions" aria-label="Account">
+    <span id="authUserLabel" class="auth-user" hidden></span>
+    <button id="authOpenButton" class="btn primary" type="button">Sign in</button>
+    <button id="authSignOutButton" class="btn" type="button" hidden>Sign out</button>
+  </div>
 </header>
 
 <main>
@@ -212,6 +221,56 @@
 </section>
 </main>
 
+<section class="auth-overlay" id="authOverlay" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="authDialogTitle">
+  <div class="auth-dialog">
+    <button class="auth-close" id="authCloseButton" type="button" aria-label="Close authentication">×</button>
+    <div class="eyebrow">AFROPOPI ACCOUNT</div>
+    <h2 id="authDialogTitle">Your music world.</h2>
+    <p>Sign in to your Afropopi account or create one to join the community.</p>
+    <div class="auth-tabs" role="tablist" aria-label="Account access">
+      <button type="button" data-auth-tab="signin" role="tab" aria-selected="true">Sign in</button>
+      <button type="button" data-auth-tab="signup" role="tab" aria-selected="false">Create account</button>
+    </div>
+    <div class="auth-view" data-auth-view="signin">
+      <form class="auth-form" data-auth-form="signin">
+        <label>Email address<input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+        <label>Password<input type="password" name="password" autocomplete="current-password" required minlength="6" placeholder="Your password"></label>
+        <button class="btn primary" type="submit">Sign in</button>
+      </form>
+      <p style="margin-top:14px"><button class="auth-link" type="button" id="forgotPasswordLink">Forgot your password?</button></p>
+    </div>
+    <div class="auth-view" data-auth-view="signup" hidden>
+      <form class="auth-form" data-auth-form="signup">
+        <label>Display name<input type="text" name="display_name" autocomplete="nickname" maxlength="60" placeholder="Your artist or listener name"></label>
+        <label>Email address<input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+        <label>Password<input type="password" name="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters"></label>
+        <button class="btn primary" type="submit">Create my account</button>
+      </form>
+      <p style="margin-top:12px;color:var(--muted);font-size:12px">If email confirmation is enabled, you’ll receive a confirmation link before you can sign in.</p>
+    </div>
+    <div class="auth-view" data-auth-view="reset-request" hidden>
+      <form class="auth-form" data-auth-form="reset-request">
+        <label>Email address<input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+        <button class="btn primary" type="submit">Send reset link</button>
+      </form>
+      <p style="margin-top:14px"><button class="auth-link" type="button" id="backToSignIn">Back to sign in</button></p>
+    </div>
+    <div class="auth-view" data-auth-view="reset-password" hidden>
+      <form class="auth-form" data-auth-form="reset-password">
+        <label>New password<input type="password" name="password" autocomplete="new-password" required minlength="6" placeholder="At least 6 characters"></label>
+        <button class="btn primary" type="submit">Update password</button>
+      </form>
+    </div>
+    <div class="auth-view" data-auth-view="account" hidden>
+      <div class="auth-account-card"><strong id="authAccountName">Afropopi listener</strong><p id="authAccountEmail"></p></div>
+      <p style="margin-top:12px"><button class="auth-link" type="button" id="authAccountButton">Account details</button></p>
+      <p style="margin-top:12px">Use the Sign out button in the page header to end your session.</p>
+    </div>
+    <p id="authStatus" class="auth-status" role="status" aria-live="polite"></p>
+    <div id="authConfigNote" class="auth-config-note" hidden>Setup needed: add your Supabase project URL and publishable key in <code>supabase-config.js</code>. Never use a service-role key in browser code.</div>
+  </div>
+</section>
+
 <footer>
   <div class="logo">Afro<span>popi</span></div>
   <p>Africa's Sound. Your Daily Update.</p>
@@ -219,29 +278,13 @@
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+// Footer year and chat behavior are managed by script.js.
 
 function showMessage(message) {
   alert(message);
 }
 
-// Demo chat: messages appear only in this browser page.
-document.getElementById("chatForm").addEventListener("submit", function(event) {
-  event.preventDefault();
 
-  const input = document.getElementById("chatInput");
-  const text = input.value.trim();
-
-  if (!text) return;
-
-  const message = document.createElement("div");
-  message.className = "message";
-  message.textContent = text;
-
-  document.getElementById("messages").appendChild(message);
-  input.value = "";
-  message.scrollIntoView({ behavior: "smooth", block: "nearest" });
-});
 </script>
 
 </body>
