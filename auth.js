@@ -71,7 +71,7 @@
     const openButton = byId("authOpenButton");
     const signOutButton = byId("authSignOutButton");
     const userLabel = byId("authUserLabel");
-    if (openButton) openButton.hidden = signedIn;
+    if (openButton) { openButton.hidden = false; openButton.textContent = signedIn ? "Account" : "Sign in"; }
     if (signOutButton) signOutButton.hidden = !signedIn;
     if (userLabel) {
       userLabel.hidden = !signedIn;
@@ -151,7 +151,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    byId("authOpenButton")?.addEventListener("click", () => openAuth("signin"));
+    byId("authOpenButton")?.addEventListener("click", () => {\n      const signedIn = Boolean(supabaseClient);\n      if (!signedIn) { openAuth("signin"); return; }\n      supabaseClient.auth.getSession().then(({ data }) => openAuth(data?.session ? "account" : "signin"));\n    });
     byId("authSignOutButton")?.addEventListener("click", async () => {
       const client = getConfiguredClient();
       if (!client) return;
